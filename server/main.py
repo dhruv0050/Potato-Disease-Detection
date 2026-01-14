@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import numpy as np
 from io import BytesIO
+from pathlib import Path
 from PIL import Image
 import tensorflow as tf
 
@@ -11,6 +12,7 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:5173",
+    '*',
 ]
 app.add_middleware(
     CORSMiddleware,
@@ -20,7 +22,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MODEL = tf.keras.models.load_model("../models/potatoes.keras")
+MODEL_PATH = Path(__file__).resolve().parent / "potatoes.keras"
+MODEL = tf.keras.models.load_model(MODEL_PATH)
 
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 
