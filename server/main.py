@@ -4,6 +4,7 @@ import uvicorn
 import numpy as np
 from io import BytesIO
 from pathlib import Path
+import os
 from PIL import Image
 import tensorflow as tf
 
@@ -52,4 +53,5 @@ async def predict(
     }
 
 if __name__ == "__main__":
-    uvicorn.run(app, host='localhost', port=8000)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
