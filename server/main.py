@@ -28,6 +28,10 @@ MODEL = tf.keras.models.load_model(MODEL_PATH)
 
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 
+@app.get("/")
+async def root():
+    return {"status": "Server is running"}
+
 @app.get("/ping")
 async def ping():
     return "Hello, I am alive"
